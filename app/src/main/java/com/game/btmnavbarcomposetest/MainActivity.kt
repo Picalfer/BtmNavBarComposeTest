@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -30,6 +31,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.game.btmnavbarcomposetest.ui.theme.BtmNavBarComposeTestTheme
+import com.game.btmnavbarcomposetest.ui.theme.Orange
 
 sealed class NavDestination(val title: String, val route: String, val icon: ImageVector) {
     object Home : NavDestination(title = "Home", route = "home_screen", icon = Icons.Filled.Home)
@@ -52,7 +54,9 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        NavigationBar {
+                        NavigationBar(
+                            containerColor = Color.DarkGray
+                        ) {
                             val navBackStackEntry by navController.currentBackStackEntryAsState()
                             val currentDestination = navBackStackEntry?.destination
                             items.forEach { screen ->
@@ -79,7 +83,14 @@ class MainActivity : ComponentActivity() {
                                             // Restore state when reselecting a previously selected item
                                             restoreState = true
                                         }
-                                    }
+                                    },
+                                    colors = NavigationBarItemDefaults.colors(
+                                        unselectedIconColor = Color.LightGray,
+                                        unselectedTextColor = Color.LightGray,
+                                        selectedIconColor = Orange,
+                                        selectedTextColor = Orange,
+                                        indicatorColor = Color.Transparent,
+                                    )
                                 )
                             }
                         }
